@@ -1,0 +1,60 @@
+﻿@model IEnumerable<AMS_v1._3.Models.student>
+
+@{
+    ViewBag.Title = "Index";
+    int ids = ViewBag.UserId;
+    decimal balance = ViewBag.Balance;
+}
+
+<h2>Parent's Dashboard</h2>
+
+<p>
+    @if (balance <= 0)
+    {
+        <label>Balance: PHP @String.Format("{0:N2}", balance) | Insufficient balance</label>
+    }
+    else
+    {
+        <label>Balance: PHP @String.Format("{0:N2}", balance)</label>
+    }
+    @Html.ActionLink("Add Balance", "Add", new { id = ids })
+    <label> | </label>
+    @Html.ActionLink("Add New Student", "Create")
+</p>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.username)</th>
+            <th>@Html.DisplayNameFor(model => model.firstname)</th>
+            <th>@Html.DisplayNameFor(model => model.middlename)</th>
+            <th>@Html.DisplayNameFor(model => model.lastname)</th>
+            <th>@Html.DisplayNameFor(model => model.addrss)</th>
+            <th>@Html.DisplayNameFor(model => model.phonenum)</th>
+            <th>@Html.DisplayNameFor(model => model.balance)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.username)</td>
+                <td>@Html.DisplayFor(modelItem => item.firstname)</td>
+                <td>@Html.DisplayFor(modelItem => item.middlename)</td>
+                <td>@Html.DisplayFor(modelItem => item.lastname)</td>
+                <td>@Html.DisplayFor(modelItem => item.addrss)</td>
+                <td>@Html.DisplayFor(modelItem => item.phonenum)</td>
+                <td>PHP @String.Format("{0:N2}", item.balance)</td>
+                <td>
+                    @Html.ActionLink("Add Balance", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Detail", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { onclick = "return confirm('Are you sure you want to delete this record?');" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Transaction Logs</h2>
+<!-- Implementation for Transaction Logs goes here -->

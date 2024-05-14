@@ -1,0 +1,167 @@
+﻿@model AMS_v1._3.Models.parent
+
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center my-4">Registration</h2>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group row">
+                    <div class="col-md-offset-2 col-md-10">
+                        <label class="text-danger">@ViewBag.Notification</label>
+                    </div>
+                </div>
+
+                <h4>Login Information</h4>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-2 col-form-label" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @id = "username" ,@required = true} })
+                        @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.passwd, htmlAttributes: new { @class = "control-label col-md-2 col-form-label" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.passwd, new { htmlAttributes = new { @class = "form-control", @id = "passwd",@type = "Password", @required = true } })
+                        @Html.ValidationMessageFor(model => model.passwd, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.confirmpasswd, htmlAttributes: new { @class = "control-label col-md-2 col-form-label" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.confirmpasswd, new { htmlAttributes = new { @class = "form-control", @id = "confirmpasswd",@type = "Password", @required = true } })
+                        @Html.ValidationMessageFor(model => model.confirmpasswd, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <hr />
+                <h4>Personal Information</h4>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.firstname, htmlAttributes: new { @class = "control-label col-md-2 col-form-label" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.firstname, new { htmlAttributes = new { @class = "form-control", @id = "firstname", @required = true } })
+                        @Html.ValidationMessageFor(model => model.firstname, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.middlename, htmlAttributes: new { @class = "control-label col-md-2 col-form-label" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.middlename, new { htmlAttributes = new { @class = "form-control", @id = "middlename", @required = true } })
+                        @Html.ValidationMessageFor(model => model.middlename, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.lastname, htmlAttributes: new { @class = "control-label col-md-2 col-form-label" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.lastname, new { htmlAttributes = new { @class = "form-control", @id = "lastname", @required = true } })
+                        @Html.ValidationMessageFor(model => model.lastname, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.addrss, htmlAttributes: new { @class = "control-label col-md-2 col-form-label" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.addrss, new { htmlAttributes = new { @class = "form-control", @id = "addrss", @required = true } })
+                        @Html.ValidationMessageFor(model => model.addrss, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.phonenum, htmlAttributes: new { @class = "control-label col-md-2 col-form-label" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.phonenum, new { htmlAttributes = new { @class = "form-control", @id = "phonenum" , @required = true } })
+                        @Html.ValidationMessageFor(model => model.phonenum, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-offset-2 col-md-4">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="text-center mt-4">
+        @Html.ActionLink("Back to Login Page", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('form').validate({
+                rules: {
+                    username: {
+                        required: true,
+                        minlength: 5
+                    },
+                    passwd: {
+                        required: true,
+                        minlength: 6
+                    },
+                    confirmpasswd: {
+                        required: true,
+                        minlength: 6,
+                        equalTo: "#passwd"
+                    },
+                    firstname: "required",
+                    lastname: "required",
+                    addrss: "required",
+                    phonenum: {
+                        required: true,
+                        digits: true
+                    }
+                },
+                messages: {
+                    username: {
+                        required: "Please enter a username",
+                        minlength: "Your username must be at least 5 characters long"
+                    },
+                    passwd: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 6 characters long"
+                    },
+                    confirmpasswd: {
+                        required: "Please confirm your password",
+                        minlength: "Your password must be at least 6 characters long",
+                        equalTo: "Please enter the same password as above"
+                    },
+                    firstname: "Please enter your first name",
+                    lastname: "Please enter your last name",
+                    addrss: "Please enter your address",
+                    phonenum: {
+                        required: "Please enter your phone number",
+                        digits: "Please enter a valid phone number"
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
